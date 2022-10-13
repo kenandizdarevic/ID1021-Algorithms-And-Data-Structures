@@ -98,8 +98,8 @@ public class ArrayHeap {
         int child1 = 2 * parent + 1;
         int child2 = 2 * parent + 2;
         
-        while ((heap[child2] != null) && (heap[parent] > heap[child1] || heap[parent] > heap[child2])) {
-            
+        while (((heap[child2] != null && pos > 2) && heap[child1] != null) && (heap[parent] > heap[child1] || heap[parent] > heap[child2])) {
+
             if (heap[child1] > heap[child2]) {
                 int temp = heap[child2];
                 heap[child2] = heap[parent];
@@ -110,7 +110,7 @@ public class ArrayHeap {
                 child2 = 2 * parent + 2;
 
             }
-            else{
+            else if (heap[child1] < heap[child2]) {
                 int temp = heap[child1];
                 heap[child1] = heap[parent];
                 heap[parent] = temp;
@@ -119,6 +119,12 @@ public class ArrayHeap {
                 child1 = 2 * parent + 1;
                 child2 = 2 * parent + 2;
             }
+        }
+
+        if ((pos == 2 && heap[child2] == null) && (heap[parent] > heap[child1])){
+            int tmp = heap[child1];
+            heap[child1] = heap[parent];
+            heap[parent] = tmp;
         }
     }
 
